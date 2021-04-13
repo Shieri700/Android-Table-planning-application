@@ -1,0 +1,702 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "ec995b070910fa4d7963326303aefa65",
+    "entities": [
+      {
+        "tableName": "Dinner",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `dinnerName` TEXT, `dinnerYear` INTEGER NOT NULL, `dinnerMonth` INTEGER NOT NULL, `dinnerDate` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerName",
+            "columnName": "dinnerName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dinnerYear",
+            "columnName": "dinnerYear",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerMonth",
+            "columnName": "dinnerMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerDate",
+            "columnName": "dinnerDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Person",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_uid` INTEGER NOT NULL, `dinner_id` INTEGER NOT NULL, `name` TEXT, `gender` TEXT, `currentHappiness` REAL NOT NULL, `person_table_id` INTEGER NOT NULL DEFAULT 4, `seatId` INTEGER NOT NULL, `person_couple_id` INTEGER NOT NULL DEFAULT 4, `person_family_id` INTEGER NOT NULL DEFAULT 4, `listPosition` INTEGER NOT NULL, `disLikeBy` INTEGER NOT NULL, `lock` INTEGER NOT NULL, PRIMARY KEY(`person_uid`), FOREIGN KEY(`dinner_id`) REFERENCES `Dinner`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`person_table_id`) REFERENCES `Table`(`table_id`) ON UPDATE NO ACTION ON DELETE SET DEFAULT , FOREIGN KEY(`person_couple_id`) REFERENCES `Couple`(`couple_uid`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`person_family_id`) REFERENCES `Family`(`family_uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "person_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerId",
+            "columnName": "dinner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "currentHappiness",
+            "columnName": "currentHappiness",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tableId",
+            "columnName": "person_table_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "4"
+          },
+          {
+            "fieldPath": "seatId",
+            "columnName": "seatId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coupleId",
+            "columnName": "person_couple_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "4"
+          },
+          {
+            "fieldPath": "familyId",
+            "columnName": "person_family_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "4"
+          },
+          {
+            "fieldPath": "listPosition",
+            "columnName": "listPosition",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "disLikeBy",
+            "columnName": "disLikeBy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lock",
+            "columnName": "lock",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Person_person_uid",
+            "unique": true,
+            "columnNames": [
+              "person_uid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Person_person_uid` ON `${TABLE_NAME}` (`person_uid`)"
+          },
+          {
+            "name": "index_Person_dinner_id",
+            "unique": false,
+            "columnNames": [
+              "dinner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Person_dinner_id` ON `${TABLE_NAME}` (`dinner_id`)"
+          },
+          {
+            "name": "index_Person_person_table_id",
+            "unique": false,
+            "columnNames": [
+              "person_table_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Person_person_table_id` ON `${TABLE_NAME}` (`person_table_id`)"
+          },
+          {
+            "name": "index_Person_person_couple_id",
+            "unique": false,
+            "columnNames": [
+              "person_couple_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Person_person_couple_id` ON `${TABLE_NAME}` (`person_couple_id`)"
+          },
+          {
+            "name": "index_Person_person_family_id",
+            "unique": false,
+            "columnNames": [
+              "person_family_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Person_person_family_id` ON `${TABLE_NAME}` (`person_family_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Dinner",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "dinner_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          },
+          {
+            "table": "Table",
+            "onDelete": "SET DEFAULT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "person_table_id"
+            ],
+            "referencedColumns": [
+              "table_id"
+            ]
+          },
+          {
+            "table": "Couple",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "person_couple_id"
+            ],
+            "referencedColumns": [
+              "couple_uid"
+            ]
+          },
+          {
+            "table": "Family",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "person_family_id"
+            ],
+            "referencedColumns": [
+              "family_uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`table_id` INTEGER NOT NULL, `dinner_id` INTEGER NOT NULL, `size` INTEGER NOT NULL, `score` REAL NOT NULL, `tableName` TEXT, `tableType` INTEGER NOT NULL, PRIMARY KEY(`table_id`), FOREIGN KEY(`dinner_id`) REFERENCES `Dinner`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "table_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerId",
+            "columnName": "dinner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "size",
+            "columnName": "size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tableName",
+            "columnName": "tableName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tableType",
+            "columnName": "tableType",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "table_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Table_table_id",
+            "unique": true,
+            "columnNames": [
+              "table_id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Table_table_id` ON `${TABLE_NAME}` (`table_id`)"
+          },
+          {
+            "name": "index_Table_dinner_id",
+            "unique": false,
+            "columnNames": [
+              "dinner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Table_dinner_id` ON `${TABLE_NAME}` (`dinner_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Dinner",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "dinner_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Couple",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`couple_uid` INTEGER NOT NULL, `dinner_id` INTEGER NOT NULL, `displayName` TEXT, `listPosition` INTEGER NOT NULL, `disLikeBy` INTEGER NOT NULL, PRIMARY KEY(`couple_uid`), FOREIGN KEY(`dinner_id`) REFERENCES `Dinner`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "couple_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerId",
+            "columnName": "dinner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "listPosition",
+            "columnName": "listPosition",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "disLikeBy",
+            "columnName": "disLikeBy",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "couple_uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Couple_couple_uid",
+            "unique": true,
+            "columnNames": [
+              "couple_uid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Couple_couple_uid` ON `${TABLE_NAME}` (`couple_uid`)"
+          },
+          {
+            "name": "index_Couple_dinner_id",
+            "unique": false,
+            "columnNames": [
+              "dinner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Couple_dinner_id` ON `${TABLE_NAME}` (`dinner_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Dinner",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "dinner_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Family",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`family_uid` INTEGER NOT NULL, `dinner_id` INTEGER NOT NULL, `family_size` INTEGER NOT NULL, `displayName` TEXT, `listPosition` INTEGER NOT NULL, `disLikeBy` INTEGER NOT NULL, PRIMARY KEY(`family_uid`), FOREIGN KEY(`dinner_id`) REFERENCES `Dinner`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "family_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerId",
+            "columnName": "dinner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "familySize",
+            "columnName": "family_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "listPosition",
+            "columnName": "listPosition",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "disLikeBy",
+            "columnName": "disLikeBy",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "family_uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Family_family_uid",
+            "unique": true,
+            "columnNames": [
+              "family_uid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Family_family_uid` ON `${TABLE_NAME}` (`family_uid`)"
+          },
+          {
+            "name": "index_Family_dinner_id",
+            "unique": false,
+            "columnNames": [
+              "dinner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Family_dinner_id` ON `${TABLE_NAME}` (`dinner_id`)"
+          },
+          {
+            "name": "index_Family_family_size",
+            "unique": false,
+            "columnNames": [
+              "family_size"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Family_family_size` ON `${TABLE_NAME}` (`family_size`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Dinner",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "dinner_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Proximity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`proximity_uid` INTEGER NOT NULL, `dinner_id` INTEGER NOT NULL, `type_1` INTEGER NOT NULL, `type2` INTEGER NOT NULL, `guest1_Id` INTEGER NOT NULL, `guest2_Id` INTEGER NOT NULL, `proximity_type` INTEGER NOT NULL, `guest1String` TEXT, `guest2String` TEXT, PRIMARY KEY(`proximity_uid`), FOREIGN KEY(`dinner_id`) REFERENCES `Dinner`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "proximity_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerId",
+            "columnName": "dinner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type1",
+            "columnName": "type_1",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type2",
+            "columnName": "type2",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guest1Id",
+            "columnName": "guest1_Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guest2Id",
+            "columnName": "guest2_Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "proximityType",
+            "columnName": "proximity_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guest1String",
+            "columnName": "guest1String",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "guest2String",
+            "columnName": "guest2String",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "proximity_uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Proximity_proximity_uid",
+            "unique": true,
+            "columnNames": [
+              "proximity_uid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Proximity_proximity_uid` ON `${TABLE_NAME}` (`proximity_uid`)"
+          },
+          {
+            "name": "index_Proximity_dinner_id",
+            "unique": false,
+            "columnNames": [
+              "dinner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Proximity_dinner_id` ON `${TABLE_NAME}` (`dinner_id`)"
+          },
+          {
+            "name": "index_Proximity_guest1_Id",
+            "unique": false,
+            "columnNames": [
+              "guest1_Id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Proximity_guest1_Id` ON `${TABLE_NAME}` (`guest1_Id`)"
+          },
+          {
+            "name": "index_Proximity_guest2_Id",
+            "unique": false,
+            "columnNames": [
+              "guest2_Id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Proximity_guest2_Id` ON `${TABLE_NAME}` (`guest2_Id`)"
+          },
+          {
+            "name": "index_Proximity_proximity_type",
+            "unique": false,
+            "columnNames": [
+              "proximity_type"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Proximity_proximity_type` ON `${TABLE_NAME}` (`proximity_type`)"
+          },
+          {
+            "name": "index_Proximity_type_1",
+            "unique": false,
+            "columnNames": [
+              "type_1"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Proximity_type_1` ON `${TABLE_NAME}` (`type_1`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Dinner",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "dinner_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Bribe",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bribe_uid` INTEGER NOT NULL, `dinner_id` INTEGER NOT NULL, `guest_Id` INTEGER NOT NULL, `guestType` INTEGER NOT NULL, `guestName` TEXT, `bribe_amount` INTEGER NOT NULL, `bribe_satis` INTEGER NOT NULL, PRIMARY KEY(`bribe_uid`), FOREIGN KEY(`dinner_id`) REFERENCES `Dinner`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "bribe_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dinnerId",
+            "columnName": "dinner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guestId",
+            "columnName": "guest_Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guestType",
+            "columnName": "guestType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guestName",
+            "columnName": "guestName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bribeAmount",
+            "columnName": "bribe_amount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "satis",
+            "columnName": "bribe_satis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bribe_uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Bribe_bribe_uid",
+            "unique": true,
+            "columnNames": [
+              "bribe_uid"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Bribe_bribe_uid` ON `${TABLE_NAME}` (`bribe_uid`)"
+          },
+          {
+            "name": "index_Bribe_dinner_id",
+            "unique": false,
+            "columnNames": [
+              "dinner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Bribe_dinner_id` ON `${TABLE_NAME}` (`dinner_id`)"
+          },
+          {
+            "name": "index_Bribe_guest_Id",
+            "unique": false,
+            "columnNames": [
+              "guest_Id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Bribe_guest_Id` ON `${TABLE_NAME}` (`guest_Id`)"
+          },
+          {
+            "name": "index_Bribe_bribe_satis",
+            "unique": false,
+            "columnNames": [
+              "bribe_satis"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Bribe_bribe_satis` ON `${TABLE_NAME}` (`bribe_satis`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Dinner",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "dinner_id"
+            ],
+            "referencedColumns": [
+              "uid"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ec995b070910fa4d7963326303aefa65')"
+    ]
+  }
+}

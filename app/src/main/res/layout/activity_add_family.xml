@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="30"
+    tools:context=".peoplelist.AddFamilyActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="28"
+        android:orientation="vertical"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp"
+            android:text="@string/familySizeHint"
+            android:textSize="18sp"
+            android:background="#815476"
+            android:textColor="#FFFFFF"/>
+
+        <Spinner
+            android:id="@+id/add_family_size_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#815476"
+            android:textColor="#FFFFFF"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_recycler_view_family_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="horizontal"
+            android:layout_weight="18"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <Button
+            android:id="@+id/button_add_family"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#647764"
+            android:text="@string/addFamilybtn"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
